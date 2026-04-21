@@ -1,0 +1,42 @@
+# render.yaml — Render.com deployment for Webflow Approval Dashboard
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: webflow-approval-dashboard
+    env: node
+    region: oregon                  # change to your preferred region
+    rootDir: dashboard
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      # ── Firebase public config ──────────────────────────────────────────────
+      - key: NEXT_PUBLIC_FIREBASE_API_KEY
+        sync: false                 # set manually in Render dashboard
+      - key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_APP_ID
+        sync: false
+      # ── Firebase Admin (server-side) ────────────────────────────────────────
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false
+      # ── App URL ─────────────────────────────────────────────────────────────
+      - key: NEXT_PUBLIC_DASHBOARD_URL
+        fromService:
+          type: web
+          name: webflow-approval-dashboard
+          property: host
+      # ── Emulator (disable in prod) ───────────────────────────────────────────
+      - key: NEXT_PUBLIC_USE_EMULATOR
+        value: "false"
+      # ── Port (Render sets this automatically) ────────────────────────────────
+      - key: PORT
+        value: "3000"
+    healthCheckPath: /api/feedback
+    autoDeploy: true

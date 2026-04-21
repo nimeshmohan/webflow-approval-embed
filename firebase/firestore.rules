@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Feedback docs: widget can create (unauthenticated write allowed for embed),
+    // but only authenticated dashboard users can read or update status.
+    match /feedback/{docId} {
+      // Public write: embed widget posts feedback without auth
+      allow create: if request.resource.data.keys().hasAll(['siteId', 'status', 'timestamp'])
+                    && request.resource.data.status == 'pending';
+
+      // Authenticated reads and updates (dashboard team)
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Sites collection: internal dashboard only
+    match /sites/{siteId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

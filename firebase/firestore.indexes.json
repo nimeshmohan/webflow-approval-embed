@@ -1,0 +1,22 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "feedback",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "siteId",    "order": "ASCENDING"  },
+        { "fieldPath": "timestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "feedback",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "siteId",    "order": "ASCENDING"  },
+        { "fieldPath": "status",    "order": "ASCENDING"  },
+        { "fieldPath": "timestamp", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
