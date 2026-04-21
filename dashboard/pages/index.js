@@ -13,6 +13,7 @@ const STAGING_SITES = [
   { id: 'site-bloom',   name: 'Bloom Finance',       url: 'https://bloom-finance.webflow.io' },
   { id: 'site-nova',    name: 'Nova SaaS',           url: 'https://nova-saas.webflow.io' },
   { id: 'site-peak',    name: 'Peak Outdoors',       url: 'https://peak-outdoors.webflow.io' },
+  { id: 'site-myproject', name: 'My Project',       url: 'https://marmoremena-website.webflow.io/' },
 ];
 
 export default function Home() {
